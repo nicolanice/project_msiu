@@ -4,7 +4,7 @@ class ConferencesController < ApplicationController
 	before_filter :check_secretary_user, :only => ['new', 'edit', 'destroy']	
 	
 	def index
-	  # найти протоколы, у которых состояние заседания будет или идет
+	 # найти протоколы, у которых состояние заседания будет или идет
 	  @protocols = Protocol.where("state = 0 or state = 1").order("state DESC").limit(5)
 	end
 	
