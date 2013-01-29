@@ -1,6 +1,8 @@
 Welcome to my project developed for MSIU!
 
-Requirements: Rails >= 3.0 (Builded on Rails 3.1.1)
+Requirements: 
+        Rails >= 3.0 (Builded on Rails 3.2.6)
+        tex-full package (for protocols out in PDF format)
 
 Run project:  make run
 Or next ways:
@@ -15,5 +17,8 @@ Drop database and creation new database:
         rails s
 
 http://localhost:3000
+Test admin user:
+        roganov
+        111111
 
 Try it! Have fun!
