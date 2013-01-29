@@ -1,0 +1,61 @@
+:javascript  
+  $(function(){
+
+    
+    $("#select_year").change(function() {              
+      var ac_year = getSelectedId(this);  
+      $("#protocols").html("#{escape_javascript(image_tag('/images/loader.gif'))}");              
+      var params = {};
+      if (ac_year != -1)
+        params = {"search[ac_year][from]" : ac_year, "search[ac_year][to]" : ac_year};
+      $.get("#{protocols_path}", params, null, "script");
+      return false;
+    });
+    
+    $("#protocols div.pagination a").live("click", function(){
+      $("#protocols").html("#{escape_javascript(image_tag('/images/loader.gif'))}");            
+      $.getScript(this.href);
+      return false;
+    });
+    
+    $("#select_view").change(function() {              
+      var vtype = getSelectedId(this);  
+      $("#protocols").html("#{escape_javascript(image_tag('/images/loader.gif'))}");            
+      $.get("#{protocols_path}", {"view_type" : vtype}, null, "script");
+      return false;
+    });
+    
+  });  
+  $("#protocol_search").modal();
+  
+
+%h3 Протоколы 
+
+#control_panel
+  %span{:class => "label label-info"}
+    Учебный год 
+  =select_tag "select_year", load_academic_years
+  %span{:class => "label label-info"}
+    Поиск
+    =link_to icon_search, "#protocol_search", :'data-toggle' => "modal"
+  %br
+  #result
+  #protocol_search.modal{:style => "width: 700px;"}
+    .modal-header
+      %button.close{:"data-dismiss"=>"modal"}
+        ×
+    .modal-body
+      =render 'search'
+    .modal-footer      
+      =submit_tag "Найти", :name => nil, :id => "run_search", :class => "btn"
+      =link_to "Закрыть", '#', :"data-dismiss" => "modal", :class => "btn btn-success"
+  %br
+  -if @current_user and @current_user.admin? or @current_user.secretary? 
+    = link_to 'Новый', new_protocol_path, :class => "btn btn-primary"
+    = link_to 'Управление шаблонами', protocol_templates_path, :class => "btn btn-primary"
+%br
+%br
+#list
+  =render "protocols", :protocols => @protocols
+ 
+

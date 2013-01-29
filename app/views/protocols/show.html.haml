@@ -1,0 +1,90 @@
+%p#notice= notice
+= link_to 'Редактировать', edit_protocol_path(@protocol), :class => "btn btn-success"
+\|
+= link_to 'Назад', protocols_path, :class => "btn btn-success"
+#sign{:style => "margin: 10px 200px"}
+  -if @current_user and @current_user.admin? and !@protocol.signed? and @protocol.state == 2
+    =link_to image_tag('/images/ico-sign.png'), set_sign_protocol_path(@protocol), :title => 'Подписать протокол', :confirm => "Подписанный протокол не подлежит изменению секретарем, однако Вам доступно его изменение, после которого подпись снимается. Вы уверены, что хотите это сделать ?"
+  -if @protocol.signed?
+    =icon_signed
+#navigate{:style => "margin: 10px 200px"}
+  =link_to image_tag('/images/prev.png'), protocol_prev_link(@protocol), :title => "Предыдущий"
+  =link_to image_tag('/images/next.png'), protocol_next_link(@protocol), :title => "Следующий"
+#protocol_wrapper
+  #protocol_header
+    Федеральное государственное бюджетное
+    образовательное учреждение высшего профессионального
+    образования московский государственный индустриальный университет
+    %br
+    (ФГБОУ ВПО МГИУ)
+  #protocol_name    
+    Протокол №
+    =@protocol.number
+    %br
+    от
+    =@date    
+    %br
+    Заседание кафедры &laquo;Информационные системы и технологии&raquo;
+  #protocol_members
+    Председатель: 
+    =@chairman
+    %br
+    Секретарь: 
+    =@secretary
+    %br
+    Присутствовали: 
+    =@employees    
+  #protocol_themes  
+    %h4 Повестка дня      
+    %ul{:style => "list-style: none;"}
+      =form_tag protocol_path(@protocol, :format => :pdf), :method => "get" do
+        Выбрать все
+        =check_box_tag "select_all_themes", :id => "select_all_themes"
+        -@protocol.themes.each do |theme|
+          %li.themes          
+            =check_box_tag "themes[]", theme.id, false, :class => "theme"
+            =theme.description
+            %ul{:style => "list-style: none;"}
+              %li
+                %b
+                  Слушали:
+                %br
+                -theme.participants.where(:party_type => 0).each do |p|            
+                  %span{:style => "font-weight:bold;"}                
+                  -info = ""                  
+                  -if !p.employee.nil?                                      
+                    -info += p.employee.post.name + " " if !p.employee.post.nil?
+                    -info += p.employee.long_fio + " "
+                  = info + p.message  
+                  %br
+                %br
+                %b
+                  Выступили:
+                %br
+                -theme.participants.where(:party_type => 1).each do |p|            
+                  %span{:style => "font-weight:bold;"}                
+                  -info = ""                  
+                  -if !p.employee.nil?                                      
+                    -info += p.employee.post.name + " " if !p.employee.post.nil?
+                    -info += p.employee.long_fio + " "
+                  = info + p.message                     
+                  %br
+                %br  
+                %b            
+                  Постановили: 
+                %br
+                =theme.decided    
+        %br          
+        =submit_tag "Создать выписку", :class => "btn"
+  #protocol_head_of_depart
+    Заведующий кафедрой
+    %br
+    &laquo;Информационные системы и технологии&raquo;
+    %br
+    =@head_of_depart
+  #protocol_footer
+    Москва 
+    =@protocol.date.year
+%hr
+
+

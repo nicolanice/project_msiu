@@ -1,0 +1,30 @@
+-if !@load_theme.blank?
+  -protocol_f = ""
+  -form_for @protocol do |f|
+    -protocol_f = f
+  .theme_participants
+    Тема:
+    %br
+    =@load_theme.description    
+    %br
+    Слушали:
+    .participants
+    -@load_theme.participants.where(:party_type => listen).each do |p|      
+      .participant_block
+        -#=p.employee.long_fio
+        -#%br
+        Комментарий:
+        %br
+        =p.message
+    Выступили:
+    .participants
+    -@load_theme.participants.where(:party_type => speak).each do |p|      
+      .participant_block
+        -#=p.employee.long_fio
+        -#%br
+        Комментарий:
+        %br
+        =p.message
+    = link_to_add_theme icon_add, protocol_f, :themes, @load_theme      
+    #showadd
+    = link_to "Перейти", :anchor => "add#{@load_theme.id}"

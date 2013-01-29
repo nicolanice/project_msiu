@@ -1,0 +1,134 @@
+
+
+
+puts "posts"
+#зав. кафедрой, профессор, доцент, старший преподаватель, ассистент
+#должности
+Post.create(:name => "зав.каф.", :short_name => "зав.каф.")
+Post.create(:name => "профессор", :short_name => "проф.")
+Post.create(:name => "доцент", :short_name => "доцент")
+Post.create(:name => "старший преподаватель", :short_name => "ст.преп.")								
+Post.create(:name => "ассистент", :short_name => "ассист.")
+Post.create(:name => "декан факультета", :short_name => "д.ф.")
+[1310, 1410, 2204, 2217, 1209, 1710, 2205].each {|num| Auditory.create(:num => num.to_s) }
+
+
+
+
+
+
+=begin
+зав.каф., доцент., к.ф.-м.н. Роганов Евгений Александрович roganov@mail.msiu.ru roganov@msiu.ru
+проф., д.т.н. Карцов Сергей Константинович kartsov@mail.msiu.ru
+проф., д.ф.-м.н. Пушкарь Евгений Александрович pushkar@mail.msiu.ru pushkar@msiu.ru
+доцент, к.ф.-м.н. Абрамов Игорь Вячеславович abramov@mail.msiu.ru abramov@msiu.ru
+доцент, к.ф.-м.н. Белова Ирина Михайловна belova@mail.msiu.ru
+доцент Бургонский Дмитрий Сергеевич dsb@mail.msiu.ru dsb@msiu.ru
+доцент, к.ф.-м.н. Кесельман Владимир Михайлович kvm2@mail.msiu.ru
+доцент, к.т.н. Куприянов Дмитрий Юрьевич kupri-ov@mail.msiu.ru kupri-ov@msiu.ru
+доцент, к.т.н. Лукьянова Наталия Владимировна luck-va@mail.msiu.ru luck-va@msiu.ru
+доцент, к.т.н. Радыгин Виктор Юрьевич radigin@mail.msiu.ru radigin@msiu.ru
+доцент, к.т.н. Роганова Наталья Анатольевна roganova@mail.msiu.ru roganova@msiu.ru
+доцент, к.ю.н. Сгибнева Ольга Валериевна sgibneva@mail.msiu.ru
+доцент, к.т.н. Толмачев Владимир Иванович tolmvi@mail.msiu.ru
+ст. преп. Беркович Роман Михайлович berk-ch@mail.msiu.ru berk-ch@msiu.ru
+ст. преп. Волохов Алексей Георгиевич vag4@mail.msiu.ru vag4@msiu.ru
+ст. преп. Евсеенко Василий Алексеевич evseenko@mail.msiu.ru evseenko@msiu.ru
+ст. преп. Курасов Юрий Викторович kurasov@mail.msiu.ru kurasov@msiu.ru
+ст. преп. Манаенкова Татьяна Андреевна cta1@mail.msiu.ru cta1@msiu.ru
+ст. преп. Роганов Владимир Александрович vroganov@mail.msiu.ru vroganov@msiu.ru
+ст. преп. Симакова Татьяна Борисовна simakova@mail.msiu.ru simakova@msiu.ru
+ст. преп. Харченко Елена Алексеевна xea3@mail.msiu.ru
+ассист. Александров Алексей Игоревич aai10@mail.msiu.ru
+ассист. Верещагин Алексей Георгиевич
+ассист. Кондратьев Алексей Владимирович kaw25@mail.msiu.ru
+ассист. Рассказов Александр Александрович raa4@mail.msiu.ru
+ассист. Харченко Анатолий Алексеевич xaa1@mail.msiu.ru
+=end
+
+
+
+#сотрудники
+puts "employees"
+
+rea = Employee.create(:f => "Роганов", :i => "Евгений", :o=> "Александрович", :post_id => Post.find_by_name("зав.каф.").id)
+bim = Employee.create(:f => "Белова", :i => "Ирина", :o=> "Михайловна", :post_id => Post.find_by_name("доцент").id)
+tvi = Employee.create(:f => "Толмачев", :i => "Владимир", :o=> "Иванович", :post_id => Post.find_by_name("доцент").id)
+rvu = Employee.create(:f => "Радыгин", :i => "Виктор", :o=> "Юрьевич", :post_id => Post.find_by_name("доцент").id)
+lnv = Employee.create(:f => "Лукьянова", :i => "Наталия", :o=> "Владимировна", :post_id => Post.find_by_name("доцент").id)
+kdu = Employee.create(:f => "Куприянов", :i => "Дмитрий", :o=> "Юрьевич", :post_id => Post.find_by_name("доцент").id)
+bds = Employee.create(:f => "Бургонский", :i => "Дмитрий", :o=> "Сергеевич", :post_id => Post.find_by_name("доцент").id)
+pea = Employee.create(:f => "Пушкарь", :i => "Евгений", :o=> "Александрович", :post_id => Post.find_by_name("декан факультета").id)
+
+employees = []
+
+Employee.find_each {|e| employees << e.id }
+
+
+
+logins = "roganov belova tolmachev radigin luckva kupriov burgonsky pushkar".split(" ")
+
+puts "users"
+i=0
+Employee.find_each do |e|  
+  login = logins[i]
+  u = User.create(:login=>login, :password=>"111111", :password_confirmation=>"111111", :email=>login+"@msiu.ru")          
+  if i==0
+    u.role = 1
+  end    
+  if i==1 or i==4
+    u.role = 2
+  end
+  u.employee = e
+  u.save
+  i+=1
+end
+
+
+#протоколы
+puts "protocols"
+p = Protocol.create(:chairman => rea, :auditory_id => Auditory.find_by_num("1310"), :date => "2012-02-10 18:00:00", :secretary => bim)
+t = p.themes.create(:description => "Что-то обсуждаем", :decided => "Что-то постановили")
+t.participants.create(:employee_id => rea, :party_type => 0, :message => "Текст")
+t.participants.create(:employee_id => pea, :party_type => 1, :message => "Текст")
+p.check_employees
+p.set_state
+p.save
+
+p = Protocol.create(:chairman => kdu, :auditory_id => Auditory.find_by_num("1410"), :date => "2011-12-21 16:00:00", :secretary => lnv)
+t = p.themes.create(:description => "Что-то обсуждаем", :decided => "Что-то постановили")
+t.participants.create(:employee_id => bim, :party_type => 0, :message => "Текст")
+t.participants.create(:employee_id => tvi, :party_type => 1, :message => "Текст")
+p.set_sign
+p.check_employees
+p.set_state
+p.save
+
+time = Time.now.utc + 3.hours
+p = Protocol.create(:chairman => rvu, :auditory_id => Auditory.find_by_num("1710"), 
+:date => "#{time.year}-#{time.month}-#{time.day} #{time.hour}:#{time.min-2}:#{time.sec}", :secretary => lnv)
+t = p.themes.create(:description => "Что-то обсуждаем", :decided => "Что-то постановили")
+t.participants.create(:employee_id => kdu, :party_type => 0, :message => "Текст")
+t.participants.create(:employee_id => bds, :party_type => 1, :message => "Текст")
+p.check_employees
+p.set_state
+p.save
+
+=begin
+50.times{
+   chairman = employees[rand(esize-1)]   
+   secretary = secretaries[rand(ssize-1)] 
+   auditory = auditories[rand(asize-1)] 
+   p = Protocol.create(:chairman => kdu, :auditory_id => Auditory.find_by_num("1410"), :date => "2011-12-21 16:00:00", :secretary => lnv)
+   t = p.themes.create(:description => "Что-то обсуждаем", :decided => "Что-то постановили")
+   t.participants.create(:employee_id => bim, :party_type => 0, :message => "Текст")
+   t.participants.create(:employee_id => tvi, :party_type => 1, :message => "Текст")
+   p.set_sign
+   p.check_employees
+   p.set_state
+   p.save
+}
+=end
+
+puts "OK"
+

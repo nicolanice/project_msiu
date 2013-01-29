@@ -1,0 +1,107 @@
+=form_tag protocols_path, :method => 'get', :id => "search_form", :remote => true do
+  =hidden_field_tag :is_search, "1"
+  %table{:class => "table table-stripped table-bordered"}    
+    %tr{:colspan => 2}
+      %td
+        %span{:class => "label label-info"}
+          Основная часть
+    %tr      
+      %td      
+        %span{:class => "label label-success"}
+          Номер:
+        %br
+        %br
+        %span{:class => "label label-success"}
+          С
+        =search_text_field_from :number
+        %span{:class => "label label-success"}
+          По
+        =search_text_field_to :number
+
+        %hr
+        %span{:class => "label label-success"}
+          Учебный год:   
+        %br
+        %br               
+        %span{:class => "label label-success"}
+          С        
+        =search_text_field_from :ac_year
+        %span{:class => "label label-success"}
+          По
+        =search_text_field_to :ac_year
+      %td
+        %span{:class => "label label-success"}
+          Аудитория:
+        %br
+        %br
+        =search_text_field :auditory
+    %tr
+      %td          
+        %span{:class => "label label-success"}
+          Председатель:
+        %br
+        %br
+        =search_text_field :chairman
+      %td
+        %span{:class => "label label-success"}
+          Секретарь:
+        %br
+        %br
+        =search_text_field :secretary
+    %tr{:colspan => 2}
+      %td
+        %span{:class => "label label-info"}
+          Содержательная часть
+    %tr
+      %td
+        %span{:class => "label label-success"}
+          Тема:
+        %br
+        %br
+        =search_text_field :theme_description
+      %td        
+        %span{:class => "label label-success"}
+          Постановили:
+        %br
+        %br
+        =search_text_field :theme_decided
+    %tr
+      %td
+        %span{:class => "label label-success"}
+          Слушали:
+        %br
+        %br
+        =search_text_field :theme_part_listen
+      %td    
+        %span{:class => "label label-success"}
+          Выступили:
+        %br
+        %br
+        =search_text_field :theme_part_speak
+    %tr
+      %td 
+        %span{:class => "label label-success"}
+          Подписанные
+        %br
+        %br
+        =search_check_box :signed
+        %br
+        %span{:class => "label label-success"}
+          Не подписанные
+        %br
+        %br
+        =search_check_box :no_signed
+      %td
+        %span{:class => "label label-success"}
+          Без шаблона
+        %br
+        %br
+        =search_check_box :without_template
+        %br
+        %span{:class => "label label-success"}
+          Не заполненные
+        %br
+        %br
+        =search_check_box :no_fill
+
+

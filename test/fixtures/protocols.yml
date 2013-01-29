@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  secretary_id: 1
+  auditory_id: 
+  date: 2011-10-23 01:46:29
+  state: 1
+
+two:
+  secretary_id: 1
+  auditory_id: 1
+  date: 2011-10-23 01:46:29
+  state: 1

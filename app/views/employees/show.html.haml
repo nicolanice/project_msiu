@@ -1,0 +1,19 @@
+%p#notice= notice
+
+%p
+  %b ФИО:
+  = @employee.long_fio  
+%p
+  %b Должность:
+  = @employee.post_id != nil ? @employee.post.name : "нет"
+%p  
+  %b Ученые степени:
+  = @employee.show_degrees
+%p
+  %b Ученое звание:
+  = @employee.academic_title_id != nil ? @employee.academic_title.name : "нет"
+
+  
+= link_to 'Редактировать', edit_employee_path(@employee), :class => "btn btn-success"
+\|
+= link_to 'Назад', employees_path, :class => "btn btn-success"

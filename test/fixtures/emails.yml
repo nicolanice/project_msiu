@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  email: test@mail.ru
+  user_id: 
+
+two:
+  email: test@mail.msiu.ru
+  user_id: 

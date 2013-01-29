@@ -1,0 +1,27 @@
+--- 
+javascripts: 
+- base: 
+  - rails
+  - jquery
+  - jquery.min
+  - application
+  - jquery.tokeninput
+stylesheets: 
+- base: 
+  - token-input-mac
+  - mystyle
+  - themes.css.scss
+  - posts.css.scss
+  - chairs.css.scss
+  - main-ie6
+  - employees.css.scss
+  - scaffold
+  - comments.css.scss
+  - token-input-facebook
+  - scaffolds.css.scss
+  - main
+  - protocols.css.scss
+  - participans.css.scss
+  - reset
+  - style
+  - 2col

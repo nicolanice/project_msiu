@@ -1,0 +1,18 @@
+:javascript
+  $(function(){
+    $("#deleted").change(function() {                        
+      var value = 1;
+      if ($(this).attr("checked")) value = 0;
+      $.get("#{employees_path}", {"deleted" : value }, null, "script");
+      return false;
+    });
+  });
+%h3 Состав кафедры
+%br
+=link_to 'Новый сотрудник', new_employee_path, :class => "btn btn-primary"
+%br
+Удаленные
+=check_box_tag "deleted", 1, params[:deleted].blank? ? false : true
+#employees
+  =render 'employees'
+     

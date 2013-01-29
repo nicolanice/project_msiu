@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @academic_title.name
+%p
+  %b Short name:
+  = @academic_title.short_name
+
+= link_to 'Edit', edit_academic_title_path(@academic_title)
+\|
+= link_to 'Back', academic_titles_path

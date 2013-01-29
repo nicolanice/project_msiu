@@ -1,0 +1,6 @@
+-if obj.errors.any?
+  #error_explanation
+    %h2{:style => "color:red;"}= "При попытке сохранить данные возникли следующие ошибки:"
+    %ul
+      -obj.errors.full_messages.each do |msg|
+        %li= msg        

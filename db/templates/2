@@ -1,0 +1,125 @@
+\vspace*{-\headheight}\vspace*{-\headsep}
+
+\centering{
+
+\small{Федеральное агентство по образованию}
+
+\textbf{\large{
+        Государственное образовательное учреждение\\
+        высшего профессионального образования\\
+        Московский государственный индустриальный университет\\
+        (ГОУ МГИУ)
+        }
+}
+
+}
+
+\vspace{1cm}
+
+
+{\centering \textbf{ 
+ФАКУЛЬТЕТ ПРИКЛАДНОЙ МАТЕМАТИКИ И ТЕХНИЧЕСКОЙ ФИЗИКИ
+}
+
+
+\vspace{1cm}
+
+                    
+<% if @is_extract.blank? %>
+\textsc\Large\textbf{ПРОТОКОЛ}
+<% else %>
+\textsc\Large\textbf{Выписка из протокола}
+<% end %>
+
+
+
+\vspace{1cm}
+
+
+
+\begin{tabular}{ c c c p{6cm} c p{5cm} c c c c c}
+%\hline
+\multicolumn{2}{ c }{<%= @date %>} & ~ & ~ & ~ & ~ & № & \multicolumn{2}{c}{<%= @protocol.number %>}\\
+\cline{1-2}
+\cline{8-9}
+%\hline
+
+\multicolumn{5}{ c }{~} & ~ & \multicolumn{3}{p{3cm}}{~}\\
+%\hline
+
+
+~ & \multicolumn{3}{c}{~} & ~ & ~ & \multicolumn{3}{c}{~}\\
+%\hline
+\cline{1-1}
+\cline{5-5}
+\multicolumn{5}{|l|}{Заседание кафедры информационные системы } & ~ & \multicolumn{3}{ c }{~}\\
+%\hline
+
+\multicolumn{5}{|l}{и технологии} & ~ & \multicolumn{3}{c}{~}\\
+%\hline
+
+\end{tabular}
+
+
+
+%\begin{tabular}{c c c}
+%\textbf{15.05.11} & ~\hspace{9cm} & \textbf{№ 15}\\
+%\cline{1-1}
+%\cline{3-3}
+%\end{tabular}
+
+
+\begin{flushleft}
+    Председатель: ~~~~~~ ~---~ <%= @chairman %>\\
+    Секретарь: ~~~~~~~~~~~ ~---~ <%= @secretary %>\\
+    Присутствовали: ~~~~~ ~---~ <%= @employees %>
+\end{flushleft}
+
+
+\vspace{0.5cm}
+
+\centering{
+  ПОВЕСТКА ДНЯ:
+}
+
+
+\begin{flushleft}
+
+  <% @protocol_themes.each_with_index do |theme, i| %>
+    <%="#{(i+1)}. "%><%= Theme.check_contain(theme.description) %>\\
+  <% end %>
+  
+  \vspace{1cm}
+
+  <% @protocol_themes.each_with_index do |theme,i| %>
+     
+      <%="#{(i+1)}. "%>СЛУШАЛИ:\\
+        <% theme.participants.where(:party_type => 0).each do |p| %>            
+            \hspace{1cm}<%= p.message %>           
+        <% end %>  
+      
+      <%="#{(i+1)}. "%>ВЫСТУПИЛИ:\\
+        <% theme.participants.where(:party_type => 1).each do |p| %>            
+            \hspace{1cm}<%= p.message %>           
+        <% end %>        
+              
+      <%="#{(i+1)}. "%>ПОСТАНОВИЛИ:\\
+        \hspace{1cm}<%= Theme.check_contain(theme.decided) %>\\
+  <% end %>
+\end{flushleft}
+
+\vfill
+
+\begin{flushleft}
+    Председатель \hspace{10cm}  /<%= @head_of_depart %>/  \\
+    Секретарь    \hspace{10cm} /<%= @secretary %>/ \\
+\end{flushleft}
+
+\vspace{1cm}
+
+
+}
+
+
+
+\end{document}

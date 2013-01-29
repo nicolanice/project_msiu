@@ -1,0 +1,47 @@
+:javascript
+  $(function(){
+    $("#select_template").live("click", function() {
+      var tid = $(this).attr("data_id");          
+      $("#protocols").html("#{escape_javascript(image_tag('/images/loader.gif'))}");
+      $.get("#{protocol_templates_path}", {"tid" : tid}, null, "script");      
+      return false;
+    });
+  });
+  $("#protocols div.pagination a").live("click", function(){
+      $("#protocols").html("#{escape_javascript(image_tag('/images/loader.gif'))}");            
+      $.getScript(this.href);
+      return false;
+  });
+  $("#datepicker2").datepicker();
+-if @protocol_templates.count == 0
+  Шаблонов нет
+-else
+  =form_tag set_template_protocols_path, :style => "width: 98%" do
+    %h3 Шаблоны протоколов
+    %table{:class => "table table-bordered table-striped"}
+      %tr
+        %th Название шаблона
+        %th{:colspan => 2} Действия
+        %th Установить для протоколов
+        %th Протоколы    
+      - @protocol_templates.each do |protocol_template|
+        %tr
+          %td= protocol_template.name
+          %td= link_to 'Посмотреть в PDF', protocol_template_path(protocol_template, :format => :pdf), :class => "btn btn-success"
+          %td= link_to 'Редактировать', edit_protocol_template_path(protocol_template), :class => "btn btn-success"        
+          %td
+            С            
+            = select_tag "dates[#{protocol_template.id}][from]", load_years(protocol_template.apply_from)
+            %br
+            По
+            = select_tag "dates[#{protocol_template.id}][to]", load_years(protocol_template.apply_to)
+             
+          %td=link_to 'Показать', "#", :data_id => protocol_template.id, :id => "select_template", :class => "btn btn-success"
+    %br
+    =submit_tag 'Сохранить', :class => "btn"
+%br
+#protocols
+-if @protocols.size != 0
+  =render 'protocols/view_types/list', :protocols => @protocols
+%br
+= link_to 'Новый шаблон', new_protocol_template_path, :class => "btn btn-primary"

@@ -1,0 +1,38 @@
+.fields
+  %a{:name => "#{f.object.id}"}
+  %a{:name => "add#{f.object.tmp_id}"}
+  = f.label :description
+  %br 
+  %br 
+  = link_to "&uArr;".html_safe, "#themes_list", :style => "font-size: 20px;", :title => "К списку тем"
+  = f.text_area :description, :rows => 8    
+  %br
+  .theme_participants
+    Слушали:
+    .participants
+      %p
+        =f.fields_for :participants do |builder|        
+          -if builder.object.party_type == listen
+            =render "/participants/listen", :f => builder                        
+          -else
+            &nbsp;
+      %p
+        = link_to_add_fields icon_add, f, :participants, listen
+    Выступили:
+    .participants
+      %p
+        = f.fields_for :participants do |builder|
+          -if builder.object.party_type == speak            
+            =render "/participants/speak", :f => builder         
+          -else
+            &nbsp;
+      %p
+        = link_to_add_fields icon_add, f, :participants, speak 
+  
+  = f.label :decided
+  %br
+  = f.text_area :decided, :rows => 8
+  %br
+  =link_to_remove_fields icon_delete, f
+  %hr{:style => "color:red;"}
+  %br

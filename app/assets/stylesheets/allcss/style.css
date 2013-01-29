@@ -1,0 +1,17 @@
+a.btn{
+	color: white;
+}
+
+nav-pills li a:hover{
+	color: black;
+}
+
+
+div.nav.navbar-fixed-top{
+  margin: 0 auto;
+  margin-top: 57px;
+  background: #222;
+  width: 30%;
+  border: 3px solid #ccc;  
+  -moz-border-radius: 5px 5px 5px 5px;
+}

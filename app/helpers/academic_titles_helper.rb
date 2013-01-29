@@ -1,0 +1,2 @@
+module AcademicTitlesHelper
+end

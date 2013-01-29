@@ -1,0 +1,17 @@
+%table{:class => "table table-bordered table-striped"}
+  %tr
+    %th ФИО
+    %th Должность
+    %th Ученое звание
+    %th Ученые степени    
+    %th{:colspan => 2} Действия
+
+  - @employees.each do |employee|
+    %tr
+      %td= employee.long_fio
+      %td= employee.post.name if !employee.post.nil?
+      %td= employee.academic_title.name if !employee.academic_title.nil?      
+      %td= employee.show_degrees
+      %td=link_to 'Редактировать', edit_employee_path(employee), :class => "btn btn-success"
+      -if not employee.deleted
+        %td=link_to 'Заблокировать доступ', delete_employee_path(employee), :confirm => 'Вы уверены?', :class => "btn btn-danger"

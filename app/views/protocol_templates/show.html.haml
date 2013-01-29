@@ -1,0 +1,11 @@
+= link_to 'Редактировать', edit_protocol_template_path(@protocol_template), :class => "btn btn-success"
+\|
+= link_to 'Назад', protocol_templates_path, :class => "btn btn-success"
+\|
+= link_to 'Посмотреть', protocol_template_path(@protocol_teamplate, :format => :pdf), :class => "btn btn-success"
+
+%p  
+  %br
+  %b Шаблон:
+  %br
+  = text_area_tag "body", @body, :readonly => true, :style => "width: 50%;", :rows => 60

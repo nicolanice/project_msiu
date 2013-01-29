@@ -1,0 +1,38 @@
+= form_for @protocol do |f|
+  =render "errors/error", :obj => @protocol
+  =hidden_field_tag "is_conference", "1"
+  .field  
+    = f.label :chairman_token
+    %br
+    = f.text_field :chairman_token, "data-pre"=>@protocol.chairman ? [@protocol.chairman].map(&:attributes).to_json : nil
+  .field
+    = f.label :secretary_token
+    %br
+    = f.text_field :secretary_token, "data-pre"=>@protocol.secretary ? [@protocol.secretary].map(&:attributes).to_json : nil
+  .field
+    = f.label :auditory_id
+    %br
+    = f.text_field :auditory_token, "data-pre"=>@protocol.auditory ? [@protocol.auditory].map(&:attributes).to_json : nil
+  .field
+    = f.label :date
+    %br    
+    = f.text_field :date, :id => "datepicker", :readonly => true
+    %hr
+    %a{:name => "themes_list"}    
+    %h2 Повестка дня
+    .protocol_themes
+      %p
+        -i=0
+        = f.fields_for :themes do |builder|                               
+          =render 'theme', :f => builder
+        %br
+      %p
+        = link_to_add_fields icon_add, f, :themes
+      #add_themes
+      %br
+    %hr                
+  #panel
+    = f.submit 'Сохранить', :class => "btn"
+    %br
+    = link_to 'Назад', conferences_path, :class => "btn btn-success"
+    %br    

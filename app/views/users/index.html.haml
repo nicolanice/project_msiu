@@ -1,0 +1,31 @@
+%h3 Пользователи системы
+
+
+
+%br
+=link_to 'Новый пользователь', signup_path, :class => "btn btn-primary"
+%br
+
+=form_tag update_roles_users_path, :class => "users-form" do
+  %table{:class => "table table-bordered table-striped"}
+    %tr
+      %th Логин
+      %th Адрес электронной почты
+      %th Сотрудник
+      %th Роль в системе
+    - @users.each do |user|
+      %tr
+        %td= user.login
+        %td= user.emails.map {|em| em.email}.join(", ")
+        -if user.employee
+          %td=user.employee.fio
+        -else
+          %td
+            %br
+        %td
+          -if @current_user && @current_user.admin?
+            =select_tag "user[#{user.id}]", select_roles(user.role)
+          -else
+            =user.human_role
+  =submit_tag 'Сохранить', :class => "btn"
+

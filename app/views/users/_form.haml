@@ -1,0 +1,30 @@
+-@user.password = @user.password_confirmation = nil
+=render "errors/error", :obj => @user
+=form_for @user, :class => "edit-form" do |f|
+  .field
+    =f.label :login
+    %br
+    =f.text_field :login
+  .field
+    =f.label :email
+    %br
+    %p    
+      = f.fields_for :emails do |builder|    
+        =render "email", :f => builder        
+        %br
+    %p        
+      = link_to_add_fields icon_add, f, :emails
+  .field
+    =f.label :password
+    %br
+    =f.password_field :password
+  .field
+    =f.label :password_confirmation
+    %br
+    =f.password_field :password_confirmation
+  .field
+    Сотрудник
+    %br
+    = f.select :employee_id, Employee.all.map {|e| [e.long_fio, e.id] }
+  .actions
+    =f.submit :class => "btn"

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  protocol: 
+  description: MyText
+  decided: MyText
+
+two:
+  protocol: 
+  description: MyText
+  decided: MyText

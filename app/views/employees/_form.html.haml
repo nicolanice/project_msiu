@@ -1,0 +1,27 @@
+= form_for @employee, :class => "edit-form" do |f|
+  =render "errors/error", :obj => @employee
+  .field
+    = f.label :f
+    = f.text_field :f
+  .field
+    = f.label :i
+    = f.text_field :i
+  .field
+    = f.label :o
+    = f.text_field :o
+  .field
+    = f.label :post_id
+    = f.select :post_id, show_posts(@employee)
+  .field
+    = f.label :academic_title_id
+    = f.select :academic_title_id, show_academic_title(@employee)
+  .field      
+    =f.label :employee_degree_ids
+    %ul
+      -Degree.find_each do |d|
+        -id = d.id
+        %li
+          =f.check_box :employee_degree_ids, {:multiple => true, :checked => f.object.degree?(id)}, id, nil 
+          =d.name
+  .actions
+    = f.submit 'Сохранить', :class => "btn"

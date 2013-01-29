@@ -1,0 +1,19 @@
+%h1 Listing dictionaries
+
+%table
+  %tr
+    %th Word
+    %th
+    %th
+    %th
+
+  - @dictionaries.each do |dictionary|
+    %tr
+      %td= dictionary.word
+      %td= link_to 'Show', dictionary
+      %td= link_to 'Edit', edit_dictionary_path(dictionary)
+      %td= link_to 'Destroy', dictionary, :confirm => 'Вы уверены?', :method => :delete
+
+%br
+
+= link_to 'New Dictionary', new_dictionary_path

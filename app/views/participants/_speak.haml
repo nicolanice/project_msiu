@@ -1,0 +1,8 @@
+.fields
+  .participant_block
+    = f.hidden_field :party_type, :value => 1
+    -#= f.select :employee_id, show_participants    
+    %br
+    = f.text_area :message, :rows => 5, :cols => 50    
+    = link_to_remove_fields icon_delete, f
+    %br

@@ -1,0 +1,21 @@
+%h1 Listing academic_titles
+
+%table
+  %tr
+    %th Name
+    %th Short name
+    %th
+    %th
+    %th
+
+  - @academic_titles.each do |academic_title|
+    %tr
+      %td= academic_title.name
+      %td= academic_title.short_name
+      %td= link_to 'Show', academic_title
+      %td= link_to 'Edit', edit_academic_title_path(academic_title)
+      %td= link_to 'Destroy', academic_title, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Academic title', new_academic_title_path

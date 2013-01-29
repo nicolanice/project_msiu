@@ -1,0 +1,23 @@
+%h1 Список тем
+
+%table
+  %tr
+    %th Протокол
+    %th Тема
+    %th Постановили
+    %th
+    %th
+    %th
+  
+  - @themes.each do |theme|
+    %tr
+      %td= theme.protocol
+      %td= theme.description
+      %td= theme.decided
+      %td= link_to 'показать', theme
+      %td= link_to 'редактировать', edit_theme_path(theme)
+      %td= link_to 'удалить', theme, :confirm => 'Вы уверены ?', :method => :delete
+
+%br
+
+= link_to 'создать', new_theme_path

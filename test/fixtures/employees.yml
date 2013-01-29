@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  f: Mystring
+  i: Mystring
+  o: Mystring
+  post: 1 
+
+two:
+  f: Mystring2
+  i: Mystring2
+  o: Mystring2
+  post: 1

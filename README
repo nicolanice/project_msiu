@@ -1,0 +1,19 @@
+Welcome to my project developed for MSIU!
+
+Requirements: Rails >= 3.0 (Builded on Rails 3.1.1)
+
+Run project:  make run
+Or next ways:
+
+Run with test database:
+        bundle install
+        rails s
+
+Drop database and creation new database:
+        bundle install
+        rake db:drop db:create db:migrate db:seed
+        rails s
+
+http://localhost:3000
+
+Try it! Have fun!

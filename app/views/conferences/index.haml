@@ -1,0 +1,31 @@
+-is_admin_or_secretary = false
+-if @current_user.admin? or @current_user.secretary?
+  -is_admin_or_secretary = true
+%h2 Заседания
+=link_to 'Новое заседание', new_conference_path, :class => "btn btn-primary" if is_admin_or_secretary
+%hr
+-@protocols.each do |p|
+  %table{:class => "table table-bordered table-striped"}
+    %tr
+      %td      
+        -if p.state == 1
+          %span{:class => "label label-success"}
+            =p.show_state + "!  "
+        =l p.date, :format => :long
+        , аудитория 
+        = p.auditory.number
+        -if is_admin_or_secretary
+          = link_to 'Редактировать', edit_conference_path(p) 
+          \|
+          = link_to 'Отменить', conference_path(p), :method => "delete", :confirm => 'Вы уверены?' if is_admin_or_secretary
+    %tr
+      %td
+        Повестка дня:
+        %br
+        -if p.themes.size == 0
+          пусто
+        -else      
+          -p.themes.each_with_index do |t, i|
+            ="#{i+1})" + t.description
+            %br    
+  

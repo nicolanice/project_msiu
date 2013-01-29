@@ -1,0 +1,14 @@
+a.btn{
+	color: white;
+}
+
+nav-pills li a:hover{
+	colot: black;
+}
+
+div.nav.navbar-fixed-top{
+  margin: 0 auto;
+  margin-top: 57px;
+  background: #222;
+  width: 60%;
+}

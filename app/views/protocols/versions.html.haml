@@ -1,0 +1,26 @@
+-@versions.each do |v|
+  -if v.size <= 3
+    -next
+  =label_tag 'Дата изменения'
+  =v["date_event"]
+  %br
+  
+  -@protocol.attributes.map do |key, val|    
+    -if not v[key].blank?
+      -str = [v[key], val]
+      -case key
+        -when "auditory_id":
+          Аудитория
+          -auds = Auditory.find(v[key], val)
+          -str = [auds[0].number, auds[1].number]
+        -when "secretary_id","chairman_id":
+          Секретарь
+          -e = Employee.find(v[key], val)
+          -str = [e[0].fio, e[1].fio]          
+          
+      =": " + str[0].to_s + " => " 
+      =str[1]
+      %br
+  =link_to 'Откатить', revert_version_path(v["vid"])
+  %br 
+  %br

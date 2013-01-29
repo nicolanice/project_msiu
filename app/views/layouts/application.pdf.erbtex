@@ -1,0 +1,17 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{geometry}
+\geometry{left = 2cm}
+\geometry{right = 2cm}
+\geometry{top = 2cm}
+\geometry{bottom = 2cm}
+\usepackage[unicode]{hyperref}
+\usepackage{tabularx}
+
+\begin{document}
+
+  <%= yield %>
+\end{document}
+
+

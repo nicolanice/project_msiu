@@ -1,0 +1,80 @@
+\vspace*{-\headheight}\vspace*{-\headsep}
+
+{\centering\textsc{ 
+Федеральное государственное бюджетное\\
+образовательное учреждение высшего профессионального\\
+образования московский государственный индустриальный университет\\
+(ФГБОУ ВПО МГИУ)
+}
+
+\vspace{2cm}
+<% if @is_extract.blank? %>
+   \textsc\large\textbf{ Протокол №<%= @protocol.id %>} 
+<% else %>
+   \textsc\large\textbf{ Выписка из протокола №<%= @protocol.id %>}
+<% end %>
+
+
+
+\centering\textsc{ 
+    \textbf{от <%= @date %>}
+}
+
+\centering\textsc{ 
+    \textbf{Заседание кафедры <<Информационные системы и технологии>>}
+}
+
+\vspace{3cm}
+
+\begin{flushleft}
+    Председатель: <%= @chairman %>\\
+    Секретарь: <%= @secretary %>\\
+    Присутствовали:
+    <%= @employees %>
+\end{flushleft}
+
+
+\vspace{2cm}
+
+\centering\textsc{ 
+  \textbf{Повестка дня}
+}
+
+\begin{itemize} 
+  <% @protocol_themes.each do |theme| %>
+    \item <%= theme.description %>
+      \hfill \\ 
+      
+      Слушали:\\
+      \begin{itemize}
+        <% theme.participants.where(:party_type => 0).each do |p| %>            
+        \item \textbf{<%= p.employee.fio %>:}<%= p.message %>\\           
+      <% end %>  
+      \end{itemize}
+      
+      Выступили:
+      \begin{itemize}
+        <% theme.participants.where(:party_type => 1).each do |p| %>            
+        \item \textbf{<%= p.employee.fio %>:}<%= p.message %>\\           
+      <% end %>  
+      \end{itemize}
+      
+      Постановили: <%= theme.decided %>\\
+  <% end %>
+\end{itemize}
+
+\vfill
+
+\begin{flushleft}
+  \begin{tabular}{l}
+    Заведующий кафедрой\\
+    <<Информационные системы и технологии>>,\\    
+    <%= @head_of_depart %>
+  \end{tabular}
+\end{flushleft}
+
+\vspace{1cm}
+
+Москва <%= @protocol.date.year %>
+
+}

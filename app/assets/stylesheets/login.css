@@ -1,0 +1,16 @@
+body{
+    background: #eff;
+}
+
+div.error{
+    color: red;
+    font-weight: bold;
+}
+
+#login_form {
+    margin: 0 auto;
+    border: 4px solid #0085CC;
+    width: 300px;
+    -moz-border-radius: 5px 5px 5px 5px;  
+    padding: 10px;
+}

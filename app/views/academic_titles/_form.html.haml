@@ -1,0 +1,11 @@
+= form_for @academic_title do |f|
+  =render "errors/error", :obj => @academic_title
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :short_name
+    = f.text_field :short_name
+  .actions
+    = f.submit 'Save'
